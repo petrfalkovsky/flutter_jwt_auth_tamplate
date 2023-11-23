@@ -61,9 +61,11 @@ class AuthService {
   static Future<User> register({
     required String email,
     required String password,
-    required String cellphone,
-    required String firstName,
-    required String lastName,
+    required bool isActive,
+    required bool isSuperuser,
+    required bool isVerified,
+    required String userName,
+    required int credits,
   }) async {
     final response = await http.post(
       HelperService.buildUri(loginPath),
@@ -72,9 +74,11 @@ class AuthService {
         {
           'email': email,
           'password': password,
-          'cellphone': cellphone,
-          'first_name': firstName,
-          'last_name': lastName
+          'is_active': isActive,
+          'is_superuser': isSuperuser,
+          'is_verified': isVerified,
+          'user_name': userName,
+          'credits': credits
         },
       ),
     );

@@ -4,7 +4,6 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:flutter_jwt_auth_example/blocs/auth/auth_bloc.dart';
 import 'package:flutter_jwt_auth_example/exceptions/form_exceptions.dart';
-import 'package:flutter_jwt_auth_example/widgets/cellphone_field.dart';
 import 'package:flutter_jwt_auth_example/widgets/form_error_widget.dart';
 import 'package:flutter_jwt_auth_example/widgets/success_dialog.dart';
 
@@ -22,9 +21,11 @@ class RegisterScreen extends StatelessWidget {
             RegisterRequestEvent(
               email: data!['email'],
               password: data['password'],
-              cellphone: data['cellphone'],
-              firstName: data['first_name'],
-              lastName: data['last_name'],
+              isActive: data['is_active'] ?? true,
+              isSuperuser: data['is_superuser'] ?? false,
+              isVerified: data['is_verified'] ?? false,
+              userName: data['user_name'],
+              credits: data['credits'] ?? 0,
             ),
           );
     }
@@ -121,10 +122,10 @@ class RegisterScreen extends StatelessWidget {
                                       return Container();
                                     }),
                                     FormBuilderTextField(
-                                      name: 'first_name',
+                                      name: 'user_name',
                                       decoration: const InputDecoration(
                                         border: OutlineInputBorder(),
-                                        labelText: 'First Name',
+                                        labelText: 'User Name',
                                       ),
                                       textInputAction: TextInputAction.next,
                                       validator: FormBuilderValidators.compose([
@@ -134,27 +135,6 @@ class RegisterScreen extends StatelessWidget {
                                         ),
                                       ]),
                                     ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    FormBuilderTextField(
-                                      name: 'last_name',
-                                      decoration: const InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        labelText: 'Last Name',
-                                      ),
-                                      textInputAction: TextInputAction.next,
-                                      validator: FormBuilderValidators.compose([
-                                        FormBuilderValidators.required(),
-                                        FormBuilderValidators.match(
-                                          r"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
-                                        ),
-                                      ]),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    const CellphoneField(),
                                     const SizedBox(
                                       height: 10,
                                     ),

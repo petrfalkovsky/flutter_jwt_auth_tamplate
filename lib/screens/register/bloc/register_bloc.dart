@@ -15,9 +15,11 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         final user = await AuthService.register(
           email: event.email,
           password: event.password,
-          cellphone: event.cellphone,
-          firstName: event.firstName,
-          lastName: event.lastName,
+          isActive: event.isActive,
+          isSuperuser: event.isSuperuser,
+          isVerified: event.isVerified,
+          userName: event.userName,
+          credits: event.credits,
         );
         emit(RegisterSuccessState(
           user,
